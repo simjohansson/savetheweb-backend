@@ -43,7 +43,6 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUni
 });
 
 // Express configuration
-app.set("port", process.env.PORT || 3000);
 app.use(session({
     resave: true,
     saveUninitialized: true,
