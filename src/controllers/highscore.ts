@@ -19,9 +19,14 @@ export const tryUpdateHighscore = async (req: Request, res: Response) => {
   }
   const data = req.body as HighscoreDocument;
   const result = await getTop5Score();
-  if (result.find(x => x.score < data.score)) {
+  if (result.length < 5 || result.find(x => x.score < data.score)) {
     const highscore = new HighscoreModel({ name: data.name, score: data.score });
-    highscore.save((error) => console.log(error));
+    try {
+      await highscore.save();
+    }
+    catch (error) {
+      throw error;
+    }
   }
   res.sendStatus(200);
 };
